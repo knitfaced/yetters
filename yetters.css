@@ -3,15 +3,22 @@
   src: url('https://cdn.jsdelivr.net/comic-sans-replacer/latest/fonts/ComicNeue-Regular.woff')
 }
 
-#letter_div {
-    background-color: cornflowerblue;
+#letter-div {
     margin: auto;
     margin-top: 100px;
     width: 400px;
     height: 400px;
     line-height: 400px;
     text-align: center;
-    font-size: 400px;
+    font-size: 200px;
     font-weight: bold;
     font-family: comicNeue;
+}
+
+#letter-div.uppercase {
+    background-color: cornflowerblue;
+}
+
+#letter-div.lowercase {
+    background-color: yellow;
 }

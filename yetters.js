@@ -1,12 +1,27 @@
 function yetters() {
-    var letter = 'a'
-    showLetter(letter)
+    let random = createRandomLetter()
+    showLetter(random)
 }
 
-function showLetter(letter) {
-    //alert('the letter is '+letter)
-    var letterDiv = document.getElementById('letter_div')
-    letterDiv.innerHTML = letter
+function showLetter(randomLetter) {
+    let letterDiv = document.getElementById('letter-div')
+    letterDiv.innerHTML = randomLetter.letter
+    
+    if (randomLetter.isLowerCase) {
+        letterDiv.className = 'lowercase'
+    } else {
+        letterDiv.className = 'uppercase'
+    }
+}
+
+function createRandomLetter() {
+    let possibleLetters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let letterIndex = Math.floor(Math.random() * possibleLetters.length)
+    let yetter = {
+        letter: possibleLetters.charAt(letterIndex),
+        isLowerCase: ((letterIndex * 2) < possibleLetters.length)
+    }
+    return yetter
 }
 
 yetters()
