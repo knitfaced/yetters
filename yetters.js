@@ -1,6 +1,9 @@
 function yetters() {
     let random = createRandomLetter()
     showLetter(random)
+    document.onkeyup = function(event) {
+        onKeyPressed(String.fromCharCode(event.which))
+    }
 }
 
 function showLetter(randomLetter) {
@@ -22,6 +25,10 @@ function createRandomLetter() {
         isLowerCase: ((letterIndex * 2) < possibleLetters.length)
     }
     return yetter
+}
+
+function onKeyPressed(letterPressed) {
+    alert("you pressed "+letterPressed)
 }
 
 yetters()
