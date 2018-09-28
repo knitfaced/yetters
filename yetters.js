@@ -1,34 +1,51 @@
-function yetters() {
-    let random = createRandomLetter()
-    showLetter(random)
-    document.onkeyup = function(event) {
-        onKeyPressed(String.fromCharCode(event.which))
-    }
-}
-
-function showLetter(randomLetter) {
-    let letterDiv = document.getElementById('letter-div')
-    letterDiv.innerHTML = randomLetter.letter
+var yetters = (function () {
     
-    if (randomLetter.isLowerCase) {
-        letterDiv.className = 'lowercase'
-    } else {
-        letterDiv.className = 'uppercase'
+    function nextTurn() {
+        let random = createRandomLetter()
+        showLetter(random)
+        document.onkeyup = function(event) {
+            let letterPressed = String.fromCharCode(event.which)
+            if (letterPressed.toLowerCase() == random.letter.toLowerCase()) {
+                guessedRight()
+            } else {
+                guessedWrong()
+            }
+        }
     }
-}
 
-function createRandomLetter() {
-    let possibleLetters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    let letterIndex = Math.floor(Math.random() * possibleLetters.length)
-    let yetter = {
-        letter: possibleLetters.charAt(letterIndex),
-        isLowerCase: ((letterIndex * 2) < possibleLetters.length)
+    function showLetter(randomLetter) {
+        let letterDiv = document.getElementById('letter-div')
+        let animalDiv = document.getElementById('animal-div')
+        letterDiv.innerHTML = randomLetter.letter
+
+        if (randomLetter.isLowerCase) {
+            letterDiv.className = 'lowercase'
+            animalDiv.className = 'snake'
+        } else {
+            letterDiv.className = 'uppercase'
+            animalDiv.className = 'giraffe'
+        }
     }
-    return yetter
-}
 
-function onKeyPressed(letterPressed) {
-    alert("you pressed "+letterPressed)
-}
+    function createRandomLetter() {
+        let possibleLetters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        let letterIndex = Math.floor(Math.random() * possibleLetters.length)
+        let yetter = {
+            letter: possibleLetters.charAt(letterIndex),
+            isLowerCase: ((letterIndex * 2) < possibleLetters.length)
+        }
+        return yetter
+    }
 
-yetters()
+    function guessedRight() {
+        //alert('yay')
+        nextTurn()
+    }
+
+    function guessedWrong() {
+        //alert('boo')
+    }
+
+    nextTurn()
+
+})()

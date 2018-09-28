@@ -3,6 +3,31 @@
   src: url('https://cdn.jsdelivr.net/comic-sans-replacer/latest/fonts/ComicNeue-Regular.woff')
 }
 
+#yetters-container {    
+    
+}
+
+#animal-div {
+    float: left;
+    width: 200px;
+    height: 400px;
+    margin-left: 10px;
+}
+
+#animal-div.snake {
+    background-image: url('images/snake.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+#animal-div.giraffe {
+    background-image: url('images/giraffe.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
 #letter-div {
     margin: auto;
     margin-top: 100px;
