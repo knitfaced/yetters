@@ -20,10 +20,8 @@ var yetters = (function () {
         letterDiv.style.color = randomLetter.colour
 
         if (randomLetter.isLowerCase) {
-            //letterDiv.className = 'lowercase'
             animalDiv.className = 'snake'
         } else {
-            //letterDiv.className = 'uppercase'
             animalDiv.className = 'giraffe'
         }
     }
@@ -39,6 +37,36 @@ var yetters = (function () {
         void letterDiv.offsetWidth
     }
 
+    function showStars() {
+        let yettersContainer = document.getElementById('yetters-container')
+        let yettersContainerWidth = yettersContainer.getBoundingClientRect().width
+        let yettersContainerHeight = yettersContainer.getBoundingClientRect().height
+        yettersContainer.appendChild(addStar(yettersContainerWidth, yettersContainerHeight))
+
+        setTimeout(hideStars, 500)
+    }
+
+    function addStar(yettersContainerWidth, yettersContainerHeight) {
+        let starContainer = document.createElement('div')
+        starContainer.id = 'star-container'
+        starContainer.style.top = Math.floor(Math.random() * yettersContainerHeight) + "px"
+        starContainer.style.left = Math.floor(Math.random() * yettersContainerWidth) + "px"
+        
+        let starDiv = document.createElement('div')
+        starDiv.className = 'star'
+        //starDiv.style.borderBottomColor = 'yellow'
+        //starDiv.style.borderTopColor = 'yellow'
+        
+        starContainer.appendChild(starDiv)
+        return starContainer   
+    }
+    
+    function hideStars() {
+        //alert('hiding stars')
+        var starContainer = document.getElementById('star-container')
+        document.getElementById('yetters-container').removeChild(starContainer)
+    }
+    
     function createRandomLetter() {
         let possibleColours = ['aqua', 
                        'blue', 
@@ -66,6 +94,7 @@ var yetters = (function () {
 
     function guessedRight() {
         //alert('yay')
+        //showStars()
         nextTurn()
     }
 
