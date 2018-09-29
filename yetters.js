@@ -57,8 +57,24 @@ var yetters = (function () {
         smileyContainer.style.top = Math.floor(Math.random() * yettersContainerHeight) + "px"
         smileyContainer.style.left = Math.floor(Math.random() * yettersContainerWidth) + "px"
         
+        let possibleColours = ['aqua', 
+                       'blue', 
+                       'fuchsia', 
+                       'grey', 
+                       'green', 
+                       'maroon', 
+                       'navy', 
+                       'olive', 
+                       'purple', 
+                       'red', 
+                       'lime', 
+                       'teal',
+                       'orange']        
+        let colourIndex = Math.floor(Math.random() * possibleColours.length)
+        
         let face = document.createElement('div')
         face.className = 'face'
+        face.style.background = possibleColours[colourIndex]
         smileyContainer.appendChild(face)
         return smileyContainer   
     }
