@@ -42,9 +42,9 @@ var yetters = (function () {
         let yettersContainerWidth = yettersContainer.getBoundingClientRect().width
         let yettersContainerHeight = yettersContainer.getBoundingClientRect().height
         
-        //yettersContainer.appendChild(addSmiley(yettersContainerWidth, yettersContainerHeight))
+        let numberOfSmilies = 10
 
-        for (i = 0; i < 5; i++) {
+        for (i = 0; i < numberOfSmilies; i++) {
             let container = yettersContainer.appendChild(addSmiley(yettersContainerWidth, yettersContainerHeight))
             setTimeout(function() { hideSmilies() }, 1000)
         }
@@ -54,33 +54,55 @@ var yetters = (function () {
     function addSmiley(yettersContainerWidth, yettersContainerHeight) {
         let smileyContainer = document.createElement('div')
         smileyContainer.className = 'smiley-container'
-        smileyContainer.style.top = Math.floor(Math.random() * yettersContainerHeight) + "px"
-        smileyContainer.style.left = Math.floor(Math.random() * yettersContainerWidth) + "px"
+        let smileyTop = random(yettersContainerHeight)
+        let smileyLeft = random(yettersContainerWidth)
+        smileyContainer.style.top = smileyTop + "px"
+        smileyContainer.style.left = smileyLeft + "px"
         
         let possibleColours = ['aqua', 
-                       'blue', 
+                       'white',
+                       'yellow',
+                       'blue',
+                       'lightgray', 
                        'fuchsia', 
                        'grey', 
-                       'green', 
-                       'maroon', 
-                       'navy', 
-                       'olive', 
-                       'purple', 
+                       'green',
                        'red', 
                        'lime', 
                        'teal',
                        'orange']        
-        let colourIndex = Math.floor(Math.random() * possibleColours.length)
+        let colourIndex = random(possibleColours.length)
         
         let face = document.createElement('div')
         face.className = 'face'
         face.style.background = possibleColours[colourIndex]
         smileyContainer.appendChild(face)
+        animateSmiley(smileyContainer, smileyTop, smileyLeft)
         return smileyContainer   
     }
     
+    function random(size) {
+        return Math.floor(Math.random() * size)
+    }
+    
+    function animateSmiley(smiley, smileyTop, smileyLeft) {
+        let i = 0
+        let duration = 200
+        var interval = setInterval(moveSmiley, random(5))    
+        let topMultiplier = random(10) - 5
+        let leftMultiplier = random(10) - 5
+        function moveSmiley() {            
+            if (i >= duration) {
+                clearInterval(interval)
+            } else {
+                i++
+                smiley.style.top = (smileyTop + (i*topMultiplier)) + "px"
+                smiley.style.left = (smileyLeft + (i*leftMultiplier)) + "px"
+            }
+        }
+    }
+    
     function hideSmilies() {
-        //alert('hiding smilies')
         let smileyContainers = document.getElementsByClassName('smiley-container')
         
         for (i = 0; i <= smileyContainers.length; i++) {
@@ -103,8 +125,8 @@ var yetters = (function () {
                        'teal',
                        'orange']
         let possibleLetters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        let letterIndex = Math.floor(Math.random() * possibleLetters.length)
-        let letterColourIndex = Math.floor(Math.random() * possibleColours.length)
+        let letterIndex = random(possibleLetters.length)
+        let letterColourIndex = random(possibleColours.length)
         let yetter = {
             letter: possibleLetters.charAt(letterIndex),
             isLowerCase: ((letterIndex * 2) < possibleLetters.length),
@@ -114,19 +136,15 @@ var yetters = (function () {
     }
 
     function guessedRight() {
-        //alert('yay')
         showSmilies()
         nextTurn()
     }
 
     function guessedWrong() {
         resetLetterAnimation()
-        //alert('guessed wrong')
         wiggleLetter()
     }
 
-    
     nextTurn()
-    
 
 })()
