@@ -27,6 +27,17 @@ var yetters = (function () {
             animalDiv.className = 'giraffe'
         }
     }
+    
+    function wiggleLetter() {
+        let letterDiv = document.getElementById('letter-div')
+        letterDiv.className = 'wiggle'
+    }
+    
+    function resetLetterAnimation() {
+        let letterDiv = document.getElementById('letter-div')
+        letterDiv.classList.remove('wiggle')
+        void letterDiv.offsetWidth
+    }
 
     function createRandomLetter() {
         let possibleColours = ['aqua', 
@@ -59,9 +70,13 @@ var yetters = (function () {
     }
 
     function guessedWrong() {
-        //alert('boo')
+        resetLetterAnimation()
+        //alert('guessed wrong')
+        wiggleLetter()
     }
 
+    
     nextTurn()
+    
 
 })()
