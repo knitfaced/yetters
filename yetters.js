@@ -1,8 +1,7 @@
 var yetters = (function () {
     
     function nextTurn() {
-        let random = createRandomLetter()
-        showLetter(random)
+        let random = createRandomLetter()        
         document.onkeyup = function(event) {
             let letterPressed = String.fromCharCode(event.which)
             if (letterPressed.toLowerCase() == random.letter.toLowerCase()) {
@@ -11,14 +10,18 @@ var yetters = (function () {
                 guessedWrong()
             }
         }
+        showLetter(random)
     }
 
     function showLetter(randomLetter) {
         let letterDiv = document.getElementById('letter-div')
         let animalDiv = document.getElementById('animal-div')
+        let letterSound = document.getElementById('letter-sound')
         letterDiv.innerHTML = randomLetter.letter
         letterDiv.style.color = randomLetter.colour
-
+        letterSound.type = "audio/mpeg"
+        letterSound.src = "letterSounds/" + randomLetter.letter.toLowerCase() + ".mp3"
+        
         if (randomLetter.isLowerCase) {
             animalDiv.className = 'snake'
         } else {
