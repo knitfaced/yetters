@@ -37,34 +37,39 @@ var yetters = (function () {
         void letterDiv.offsetWidth
     }
 
-    function showStars() {
+    function showSmilies() {
         let yettersContainer = document.getElementById('yetters-container')
         let yettersContainerWidth = yettersContainer.getBoundingClientRect().width
         let yettersContainerHeight = yettersContainer.getBoundingClientRect().height
-        yettersContainer.appendChild(addStar(yettersContainerWidth, yettersContainerHeight))
+        
+        //yettersContainer.appendChild(addSmiley(yettersContainerWidth, yettersContainerHeight))
 
-        setTimeout(hideStars, 500)
+        for (i = 0; i < 5; i++) {
+            let container = yettersContainer.appendChild(addSmiley(yettersContainerWidth, yettersContainerHeight))
+            setTimeout(function() { hideSmilies() }, 1000)
+        }
+        
     }
 
-    function addStar(yettersContainerWidth, yettersContainerHeight) {
-        let starContainer = document.createElement('div')
-        starContainer.id = 'star-container'
-        starContainer.style.top = Math.floor(Math.random() * yettersContainerHeight) + "px"
-        starContainer.style.left = Math.floor(Math.random() * yettersContainerWidth) + "px"
+    function addSmiley(yettersContainerWidth, yettersContainerHeight) {
+        let smileyContainer = document.createElement('div')
+        smileyContainer.className = 'smiley-container'
+        smileyContainer.style.top = Math.floor(Math.random() * yettersContainerHeight) + "px"
+        smileyContainer.style.left = Math.floor(Math.random() * yettersContainerWidth) + "px"
         
-        let starDiv = document.createElement('div')
-        starDiv.className = 'star'
-        //starDiv.style.borderBottomColor = 'yellow'
-        //starDiv.style.borderTopColor = 'yellow'
-        
-        starContainer.appendChild(starDiv)
-        return starContainer   
+        let face = document.createElement('div')
+        face.className = 'face'
+        smileyContainer.appendChild(face)
+        return smileyContainer   
     }
     
-    function hideStars() {
-        //alert('hiding stars')
-        var starContainer = document.getElementById('star-container')
-        document.getElementById('yetters-container').removeChild(starContainer)
+    function hideSmilies() {
+        //alert('hiding smilies')
+        let smileyContainers = document.getElementsByClassName('smiley-container')
+        
+        for (i = 0; i <= smileyContainers.length; i++) {
+            document.getElementById('yetters-container').removeChild(smileyContainers[i])
+        }
     }
     
     function createRandomLetter() {
@@ -94,7 +99,7 @@ var yetters = (function () {
 
     function guessedRight() {
         //alert('yay')
-        //showStars()
+        showSmilies()
         nextTurn()
     }
 
