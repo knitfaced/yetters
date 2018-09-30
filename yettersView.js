@@ -47,7 +47,10 @@ let yettersView = {
         void letterDiv.offsetWidth
     },
 
-    addSmiley: function(yettersContainerWidth, yettersContainerHeight) {
+    addSmiley: function() {
+        let yettersContainer = document.getElementById('yetters-container')
+        let yettersContainerWidth = yettersContainer.getBoundingClientRect().width
+        let yettersContainerHeight = yettersContainer.getBoundingClientRect().height
         let smileyContainer = document.createElement('div')
         smileyContainer.className = 'smiley-container'
         let smileyTop = Utils.random(yettersContainerHeight)
@@ -74,7 +77,7 @@ let yettersView = {
         face.style.background = possibleColours[colourIndex]
         smileyContainer.appendChild(face)
         yettersAnimation.animateSmiley(smileyContainer, smileyTop, smileyLeft)
-        return smileyContainer   
+        yettersContainer.appendChild(smileyContainer)
     },
     
     hideSmilies: function() {

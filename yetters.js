@@ -39,14 +39,11 @@ var yetters = (function (view) {
     }
     
     function showSmilies() {
-        let yettersContainer = document.getElementById('yetters-container')
-        let yettersContainerWidth = yettersContainer.getBoundingClientRect().width
-        let yettersContainerHeight = yettersContainer.getBoundingClientRect().height
-        
+
         let numberOfSmilies = 10
 
         for (i = 0; i < numberOfSmilies; i++) {
-            let container = yettersContainer.appendChild(view.addSmiley(yettersContainerWidth, yettersContainerHeight))
+            view.addSmiley()
             setTimeout(function() { view.hideSmilies() }, 1000)
         }
     }
