@@ -18,43 +18,44 @@ let yettersAnimation = {
     }    
 }
 
-let yettersView = {
-    
-    showLetter: function(randomLetter) {
-        let letterDiv = document.getElementById('letter-div')
-        let animalDiv = document.getElementById('animal-div')
-        let letterSound = document.getElementById('letter-sound')
-        letterDiv.innerHTML = randomLetter.letter
-        letterDiv.style.color = randomLetter.colour
-        letterSound.type = "audio/mpeg"
-        letterSound.src = "letterSounds/" + randomLetter.letter.toLowerCase() + ".mp3"
+let doc = {
+    letterDiv: document.getElementById('letter-div'),
+    animalDiv: document.getElementById('animal-div'),
+    letterSound: document.getElementById('letter-sound'),
+    yettersContainer: document.getElementById('yetters-container'),
+    smileyContainers: function() { return document.getElementsByClassName('smiley-container') }
+}
+
+let yettersView = {    
+    showLetter: function(randomLetter) {        
+        doc.letterDiv.innerHTML = randomLetter.letter
+        doc.letterDiv.style.color = randomLetter.colour
+        doc.letterSound.type = "audio/mpeg"
+        doc.letterSound.src = "letterSounds/" + randomLetter.letter.toLowerCase() + ".mp3"
         
         if (randomLetter.isLowerCase) {
-            animalDiv.className = 'snake'
+            doc.animalDiv.className = 'snake'
         } else {
-            animalDiv.className = 'giraffe'
+            doc.animalDiv.className = 'giraffe'
         }
     },
     
     wiggleLetter: function() {
-        let letterDiv = document.getElementById('letter-div')
-        letterDiv.className = 'wiggle'
+        doc.letterDiv.className = 'wiggle'
     },
     
-    resetLetterAnimation: function() {
-        let letterDiv = document.getElementById('letter-div')
-        letterDiv.classList.remove('wiggle')
-        void letterDiv.offsetWidth
+    resetLetterAnimation: function() {        
+        doc.letterDiv.classList.remove('wiggle')
+        void doc.letterDiv.offsetWidth
     },
 
     addSmiley: function() {
-        let yettersContainer = document.getElementById('yetters-container')
-        let yettersContainerWidth = yettersContainer.getBoundingClientRect().width
-        let yettersContainerHeight = yettersContainer.getBoundingClientRect().height
-        let smileyContainer = document.createElement('div')
-        smileyContainer.className = 'smiley-container'
+        let yettersContainerWidth = doc.yettersContainer.getBoundingClientRect().width
+        let yettersContainerHeight = doc.yettersContainer.getBoundingClientRect().height
         let smileyTop = Utils.random(yettersContainerHeight)
         let smileyLeft = Utils.random(yettersContainerWidth)
+        let smileyContainer = document.createElement('div')
+        smileyContainer.className = 'smiley-container'        
         smileyContainer.style.top = smileyTop + "px"
         smileyContainer.style.left = smileyLeft + "px"
         
@@ -77,14 +78,13 @@ let yettersView = {
         face.style.background = possibleColours[colourIndex]
         smileyContainer.appendChild(face)
         yettersAnimation.animateSmiley(smileyContainer, smileyTop, smileyLeft)
-        yettersContainer.appendChild(smileyContainer)
+        doc.yettersContainer.appendChild(smileyContainer)
     },
     
     hideSmilies: function() {
-        let smileyContainers = document.getElementsByClassName('smiley-container')
-        
+        let smileyContainers = doc.smileyContainers()
         for (i = 0; i < smileyContainers.length; i++) {
-            document.getElementById('yetters-container').removeChild(smileyContainers[i])
+            doc.yettersContainer.removeChild(smileyContainers[i])
         }
     }
 }

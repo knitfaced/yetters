@@ -1,4 +1,5 @@
-var yetters = (function (view) {
+(function (view) {
+    let score = 0
     
     function nextTurn() {
         let random = createRandomLetter()        
@@ -39,7 +40,6 @@ var yetters = (function (view) {
     }
     
     function showSmilies() {
-
         let numberOfSmilies = 10
 
         for (i = 0; i < numberOfSmilies; i++) {
