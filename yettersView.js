@@ -19,6 +19,7 @@ let yettersAnimation = {
 }
 
 let doc = {
+    instructions: document.getElementById('instructions'),
     letterDiv: document.getElementById('letter-div'),
     animalDiv: document.getElementById('animal-div'),
     letterSound: document.getElementById('letter-sound'),
@@ -26,7 +27,23 @@ let doc = {
     smileyContainers: function() { return document.getElementsByClassName('smiley-container') }
 }
 
-let yettersView = {    
+let yettersView = {
+    showGame: function() {
+        doc.yettersContainer.style.display = 'block'
+    },
+    
+    hideGame: function() {
+        doc.yettersContainer.style.display = 'none'
+    },
+    
+    showInstructions: function() {
+        doc.instructions.style.display = 'block'    
+    },
+    
+    hideInstructions: function() {
+        doc.instructions.style.display = 'none'    
+    },
+    
     showLetter: function(randomLetter) {        
         doc.letterDiv.innerHTML = randomLetter.letter
         doc.letterDiv.style.color = randomLetter.colour

@@ -58,6 +58,16 @@
         view.wiggleLetter()
     }
 
-    nextTurn()
+    function startGame() {
+        view.hideGame()
+        view.showInstructions()
+        document.onkeyup = function(event) {
+            view.hideInstructions()
+            view.showGame()
+            nextTurn()
+        }            
+    }
+    
+    startGame() 
 
 })(yettersView)
