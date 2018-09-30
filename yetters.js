@@ -43,7 +43,9 @@
         let numberOfSmilies = 10
 
         for (i = 0; i < numberOfSmilies; i++) {
-            view.addSmiley()
+            let container = view.addRandomlyPlacedContainer('smiley-container')
+            view.addSmiley(container)
+            yettersAnimation.animateContainer(container)
             setTimeout(function() { view.hideSmilies() }, 1000)
         }
     }

@@ -1,18 +1,18 @@
 let yettersAnimation = {
     
-    animateSmiley: function(smiley, smileyTop, smileyLeft) {
+    animateContainer: function(container) {
         let i = 0
         let duration = 200
-        var interval = setInterval(moveSmiley, Utils.random(5))    
+        var interval = setInterval(moveContainer, Utils.random(5))    
         let topMultiplier = Utils.random(10) - 5
         let leftMultiplier = Utils.random(10) - 5
-        function moveSmiley() {            
+        function moveContainer() {            
             if (i >= duration) {
                 clearInterval(interval)
             } else {
                 i++
-                smiley.style.top = (smileyTop + (i*topMultiplier)) + "px"
-                smiley.style.left = (smileyLeft + (i*leftMultiplier)) + "px"
+                container.containerElement.style.top = (container.top + (i*topMultiplier)) + "px"
+                container.containerElement.style.left = (container.left + (i*leftMultiplier)) + "px"
             }
         }
     }    
@@ -66,16 +66,24 @@ let yettersView = {
         void doc.letterDiv.offsetWidth
     },
 
-    addSmiley: function() {
+    addRandomlyPlacedContainer: function(className) {
         let yettersContainerWidth = doc.yettersContainer.getBoundingClientRect().width
         let yettersContainerHeight = doc.yettersContainer.getBoundingClientRect().height
-        let smileyTop = Utils.random(yettersContainerHeight)
-        let smileyLeft = Utils.random(yettersContainerWidth)
-        let smileyContainer = document.createElement('div')
-        smileyContainer.className = 'smiley-container'        
-        smileyContainer.style.top = smileyTop + "px"
-        smileyContainer.style.left = smileyLeft + "px"
-        
+        let containerTop = Utils.random(yettersContainerHeight)
+        let containerLeft = Utils.random(yettersContainerWidth)
+        let newContainerElement = document.createElement('div')        
+        newContainerElement.className = className        
+        newContainerElement.style.top = containerTop + "px"
+        newContainerElement.style.left = containerLeft + "px"        
+        var randomContainer = {
+            containerElement: newContainerElement,
+            top: containerTop,
+            left: containerLeft
+        }        
+        return randomContainer
+    },
+    
+    addSmiley: function(container) {
         let possibleColours = ['aqua', 
                        'white',
                        'yellow',
@@ -89,13 +97,11 @@ let yettersView = {
                        'teal',
                        'orange']        
         let colourIndex = Utils.random(possibleColours.length)
-        
         let face = document.createElement('div')
         face.className = 'face'
         face.style.background = possibleColours[colourIndex]
-        smileyContainer.appendChild(face)
-        yettersAnimation.animateSmiley(smileyContainer, smileyTop, smileyLeft)
-        doc.yettersContainer.appendChild(smileyContainer)
+        container.containerElement.appendChild(face)
+        doc.yettersContainer.appendChild(container.containerElement)
     },
     
     hideSmilies: function() {
