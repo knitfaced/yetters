@@ -22,6 +22,7 @@ let doc = {
     instructions: document.getElementById('instructions'),
     letterDiv: document.getElementById('letter-div'),
     animalDiv: document.getElementById('animal-div'),
+    scoreDiv: document.getElementById('score-div'),
     letterSound: document.getElementById('letter-sound'),
     yettersContainer: document.getElementById('yetters-container'),
     smileyContainers: function() { return document.getElementsByClassName('smiley-container') }
@@ -109,5 +110,9 @@ let yettersView = {
         for (i = 0; i < smileyContainers.length; i++) {
             doc.yettersContainer.removeChild(smileyContainers[i])
         }
+    },
+    
+    showScore: function(score) {
+        doc.scoreDiv.innerHTML = score
     }
 }

@@ -51,6 +51,7 @@
     }
 
     function guessedRight() {
+        //view.showScore(++score)
         showSmilies()
         nextTurn()
     }
