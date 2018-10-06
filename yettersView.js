@@ -1,24 +1,6 @@
-let yettersAnimation = {
-    
-    animateContainer: function(container) {
-        let i = 0
-        let duration = 200
-        var interval = setInterval(moveContainer, Utils.random(5))    
-        let topMultiplier = Utils.random(10) - 5
-        let leftMultiplier = Utils.random(10) - 5
-        function moveContainer() {            
-            if (i >= duration) {
-                clearInterval(interval)
-            } else {
-                i++
-                container.containerElement.style.top = (container.top + (i*topMultiplier)) + "px"
-                container.containerElement.style.left = (container.left + (i*leftMultiplier)) + "px"
-            }
-        }
-    }    
-}
-
 let doc = {
+    width: function() { return Math.max(document.documentElement.clientWidth, window.innerWidth || 0) },
+    height: function() { return Math.max(document.documentElement.clientHeight, window.innerHeight || 0) },
     instructions: document.getElementById('instructions'),
     letterDiv: document.getElementById('letter-div'),
     animalDiv: document.getElementById('animal-div'),
@@ -31,11 +13,9 @@ let doc = {
 }
 
 let viewUtils = {
-    addRandomlyPlacedContainer: function(className) {
-        let yettersContainerWidth = doc.yettersContainer.getBoundingClientRect().width
-        let yettersContainerHeight = doc.yettersContainer.getBoundingClientRect().height
-        let containerTop = Utils.random(yettersContainerHeight)
-        let containerLeft = Utils.random(yettersContainerWidth)
+    addRandomlyPlacedContainer: function(className, maxLeft, maxTop) {
+        let containerTop = Utils.random(maxTop)
+        let containerLeft = Utils.random(maxLeft)
         let newContainerElement = document.createElement('div')        
         newContainerElement.className = className        
         newContainerElement.style.top = containerTop + "px"
@@ -50,7 +30,38 @@ let viewUtils = {
     }   
 }
 
+let yettersAnimation = {    
+    animateContainer: function(container) {
+        let i = 0
+        let duration = 200
+        var interval = setInterval(moveContainer, Utils.random(5))    
+        let topMultiplier = Utils.random(10) - 5
+        let leftMultiplier = Utils.random(10) - 5
+        function moveContainer() {            
+            if (i >= duration) {
+                clearInterval(interval)
+            } else {
+                i++
+                let newTop = container.top + (i*topMultiplier)
+                let newLeft = container.left + (i*leftMultiplier)
+                let offBottomEdge = doc.height() < (newTop + container.height)
+                let offRightEdge = doc.width() < (newLeft + container.width)
+                if (!offBottomEdge) {
+                    container.containerElement.style.top = newTop + "px"
+                }
+                if (!offRightEdge) {
+                    container.containerElement.style.left = newLeft + "px"
+                }
+            }
+        }
+    }    
+}
+
+
 let yettersView = {
+    yettersContainerWidth: doc.yettersContainer.getBoundingClientRect().width,
+    yettersContainerHeight: doc.yettersContainer.getBoundingClientRect().height,
+    
     showGame: function() {
         doc.yettersContainer.style.display = 'block'
     },
@@ -118,7 +129,7 @@ let yettersView = {
     
     showVictoryUnicorn: function() {
         doc.soundEffect.src = "sounds/neigh.wav"
-        let unicornContainer = viewUtils.addRandomlyPlacedContainer('unicorn-container')
+        let unicornContainer = viewUtils.addRandomlyPlacedContainer('unicorn-container', 200, 200)
         yettersAnimation.animateContainer(unicornContainer)
     },
     
