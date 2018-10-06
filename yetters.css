@@ -42,7 +42,16 @@
     width: 100px;
     height: 100px;
     position: absolute;
-    top: 10px;
+}
+
+.unicorn-container {
+    width: 640px;
+    height: 640px;
+    position: absolute;
+    background-image: url('images/unicorn3.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;    
 }
 
 #animal-div {

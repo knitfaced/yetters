@@ -24,8 +24,30 @@ let doc = {
     animalDiv: document.getElementById('animal-div'),
     scoreDiv: document.getElementById('score-div'),
     letterSound: document.getElementById('letter-sound'),
+    soundEffect: document.getElementById('sound-effect'),
     yettersContainer: document.getElementById('yetters-container'),
+    unicornContainer: function() {  return document.getElementsByClassName('unicorn-container')[0] },
     smileyContainers: function() { return document.getElementsByClassName('smiley-container') }
+}
+
+let viewUtils = {
+    addRandomlyPlacedContainer: function(className) {
+        let yettersContainerWidth = doc.yettersContainer.getBoundingClientRect().width
+        let yettersContainerHeight = doc.yettersContainer.getBoundingClientRect().height
+        let containerTop = Utils.random(yettersContainerHeight)
+        let containerLeft = Utils.random(yettersContainerWidth)
+        let newContainerElement = document.createElement('div')        
+        newContainerElement.className = className        
+        newContainerElement.style.top = containerTop + "px"
+        newContainerElement.style.left = containerLeft + "px"        
+        var randomContainer = {
+            containerElement: newContainerElement,
+            top: containerTop,
+            left: containerLeft
+        }
+        doc.yettersContainer.appendChild(newContainerElement)
+        return randomContainer
+    }   
 }
 
 let yettersView = {
@@ -48,8 +70,7 @@ let yettersView = {
     showLetter: function(randomLetter) {        
         doc.letterDiv.innerHTML = randomLetter.letter
         doc.letterDiv.style.color = randomLetter.colour
-        doc.letterSound.type = "audio/mpeg"
-        doc.letterSound.src = "letterSounds/" + randomLetter.letter.toLowerCase() + ".mp3"
+        doc.letterSound.src = "sounds/letterSounds/" + randomLetter.letter.toLowerCase() + ".mp3"
         
         if (randomLetter.isLowerCase) {
             doc.animalDiv.className = 'snake'
@@ -65,23 +86,6 @@ let yettersView = {
     resetLetterAnimation: function() {        
         doc.letterDiv.classList.remove('wiggle')
         void doc.letterDiv.offsetWidth
-    },
-
-    addRandomlyPlacedContainer: function(className) {
-        let yettersContainerWidth = doc.yettersContainer.getBoundingClientRect().width
-        let yettersContainerHeight = doc.yettersContainer.getBoundingClientRect().height
-        let containerTop = Utils.random(yettersContainerHeight)
-        let containerLeft = Utils.random(yettersContainerWidth)
-        let newContainerElement = document.createElement('div')        
-        newContainerElement.className = className        
-        newContainerElement.style.top = containerTop + "px"
-        newContainerElement.style.left = containerLeft + "px"        
-        var randomContainer = {
-            containerElement: newContainerElement,
-            top: containerTop,
-            left: containerLeft
-        }        
-        return randomContainer
     },
     
     addSmiley: function(container) {
@@ -102,7 +106,7 @@ let yettersView = {
         face.className = 'face'
         face.style.background = possibleColours[colourIndex]
         container.containerElement.appendChild(face)
-        doc.yettersContainer.appendChild(container.containerElement)
+        
     },
     
     hideSmilies: function() {
@@ -110,6 +114,16 @@ let yettersView = {
         for (i = 0; i < smileyContainers.length; i++) {
             doc.yettersContainer.removeChild(smileyContainers[i])
         }
+    },
+    
+    showVictoryUnicorn: function() {
+        doc.soundEffect.src = "sounds/neigh.wav"
+        let unicornContainer = viewUtils.addRandomlyPlacedContainer('unicorn-container')
+        yettersAnimation.animateContainer(unicornContainer)
+    },
+    
+    hideVictoryUnicorn: function() {
+        doc.yettersContainer.removeChild(doc.unicornContainer())
     },
     
     showScore: function(score) {
