@@ -9,6 +9,7 @@ let doc = {
     soundEffect: document.getElementById('sound-effect'),
     yettersContainer: document.getElementById('yetters-container'),
     unicornContainer: function() {  return document.getElementsByClassName('unicorn-container')[0] },
+    monsterContainer: function() {  return document.getElementsByClassName('monster-container')[0] },
     smileyContainers: function() { return document.getElementsByClassName('smiley-container') }
 }
 
@@ -135,6 +136,16 @@ let yettersView = {
     
     hideVictoryUnicorn: function() {
         doc.yettersContainer.removeChild(doc.unicornContainer())
+    },
+    
+    showMonster: function() {
+        doc.soundEffect.src = "sounds/roar.wav"
+        let monsterContainer = viewUtils.addRandomlyPlacedContainer('monster-container', 200, 200)
+        yettersAnimation.animateContainer(monsterContainer)
+    },
+    
+    hideMonster: function() {
+        doc.yettersContainer.removeChild(doc.monsterContainer())    
     },
     
     showScore: function(score) {

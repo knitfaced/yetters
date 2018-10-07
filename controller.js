@@ -66,6 +66,8 @@
     }
 
     function guessedWrong() {
+        view.showMonster()
+        setTimeout(function() { view.hideMonster() }, 1000)
         view.resetLetterAnimation()
         view.wiggleLetter()
     }

@@ -54,6 +54,16 @@
     background-size: contain;    
 }
 
+.monster-container {
+    width: 300px;
+    height: 260px;
+    position: absolute;
+    background-image: url('images/blue-monster.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;    
+}
+
 #animal-div {
     float: left;
     width: 200px;
