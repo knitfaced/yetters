@@ -52,7 +52,11 @@
     
     function showVictoryUnicorn() {
         view.showVictoryUnicorn()
-        setTimeout(function() { view.hideVictoryUnicorn() }, 1000)
+        view.showRainbow()
+        setTimeout(function() { 
+            view.hideVictoryUnicorn()
+            view.hideRainbow()
+        }, 1000)
     }
 
     function guessedRight() {

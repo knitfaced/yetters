@@ -148,6 +148,14 @@ let yettersView = {
         doc.yettersContainer.removeChild(doc.monsterContainer())    
     },
     
+    showRainbow: function() {
+        doc.yettersContainer.className='rainbow'    
+    },
+    
+    hideRainbow: function() {
+        doc.yettersContainer.className=''    
+    },
+    
     showScore: function(score) {
         doc.scoreDiv.innerHTML = score
     }
